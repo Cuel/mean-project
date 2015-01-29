@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <title>Test Site</title>
+    <link rel="stylesheet" href="vendor/pure/pure.css">
+    <link rel="stylesheet" href="app.css">
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-route/angular-route.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+</head>
+
+<body ng-app="app" ng-cloak>
+    <div id="layout" ng-controller="appNavigationMenu" ng-class="{'active': mobileMenuActive}">
+        <a id="menuLink" class="menu-link" ng-click="toggleMobileMenu()" ng-class="{'active': mobileMenuActive}">
+            <!-- Hamburger icon -->
+            <span></span>
+        </a>
+        <div id="menu" ng-class="{'active': mobileMenuActive}">
+            <div class="pure-menu pure-menu-open">
+                <a class="pure-menu-heading" href="#">Test Site</a>
+
+                <ul>
+                    <li ng-repeat="link in links" ng-class="{'pure-menu-selected': isActive(link.url),
+                          'menu-item-divided': link.divider}">
+                        <a ng-click="toggleMobileMenu(true)" href="#{{link.url}}" blur-after-click>{{link.url | capitalize}}</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+        <!--
+    <div ng-controller="fpApp.viewLoadController">
+        <div id="ajaxload" ng-if="isViewLoading">
+            <img ng-src="img/ajaxload.gif" />
+        </div>
+        <div ng-view id="content-wrapper" ng-show="!isViewLoading"></div>
+    </div>
+    -->
+        <div id="main">
+            <div class="content">
+                <div class="header">
+                    <h1>Page Title</h1>
+                    <h2>A subtitle for your page goes here</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
