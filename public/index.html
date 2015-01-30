@@ -26,7 +26,7 @@
                 <ul>
                     <li ng-repeat="link in links" ng-class="{'pure-menu-selected': isActive(link.url),
                           'menu-item-divided': link.divider}">
-                        <a ng-click="toggleMobileMenu(true)" href="#{{link.url}}" blur-after-click>{{link.url | capitalize}}</a>
+                        <a blur-after-click ng-click="toggleMobileMenu(true)" href="#{{link.url}}" >{{link.url | capitalize}}</a>
                     </li>
 
                 </ul>
@@ -50,6 +50,7 @@
             </div>
         </div>
     </div>
+    <script src="vendor/fastclick/lib/fastclick.js"></script>
     <script src="app.js"></script>
 </body>
 
