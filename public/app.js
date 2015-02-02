@@ -4,7 +4,21 @@ if ('addEventListener' in document) {
     }, false);
 }
 
-angular.module('app', [])
+angular.module('app', [
+    'ngRoute'
+    ])
+    .config(['$routeProvider', function($routeProvider) {
+        $routeProvider
+            .when('/news', {
+                templateUrl: "components/news/news.tmpl.html",
+                controller:'newsController'
+            })
+            .when('/events', {
+                templateUrl: "components/events/events.tmpl.html",
+                controller: 'eventsController'
+            })
+            .otherwise({ redirectTo: '/news' });
+    }])
     .controller('appNavigationMenu', ['$scope', '$location', '$window', '$timeout',
     function ($scope, $location, $window, $timeout) {
 
@@ -12,7 +26,7 @@ angular.module('app', [])
             $scope.links = [{
                 url: 'news'
         }, {
-                url: 'home'
+                url: 'events'
         }, {
                 url: 'contact'
         }, {
@@ -35,7 +49,7 @@ angular.module('app', [])
                 return page === currentRoute;
             };
 
-            // In case the menu is open and the window resized, we need  to manually remove the 
+            // In case the menu is open and the window resized, we need  to manually remove the
             // active class from the layout
             var handleMatchMedia = function (mql) {
                 if (mql.matches) {
@@ -64,7 +78,7 @@ angular.module('app', [])
     };
 })
 
-.directive('blurAfterClick', function ($timeout) {
+.directive('blurAfterClick', function () {
     return {
         link: function (scope, element) {
             element.bind('click', function () {

@@ -27,6 +27,7 @@ build/Release
 node_modules
 public/vendor
 .sass-cache
+.c9
 
 .DS_Store
 .AppleDouble
