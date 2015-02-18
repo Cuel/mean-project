@@ -1,23 +1,24 @@
 if ('addEventListener' in document) {
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         FastClick.attach(document.body);
     }, false);
 }
 
 angular.module('app', [
-    'ngRoute'
+    'ngRoute',
+    'angularMoment',
+    'app.news',
+    'app.events'
     ])
-    .config(['$routeProvider', function($routeProvider) {
+    .config(['$routeProvider', function ($routeProvider) {
         $routeProvider
             .when('/news', {
                 templateUrl: "components/news/news.tmpl.html",
-                controller:'newsController'
+                controller: 'newsController'
             })
-            .when('/events', {
-                templateUrl: "components/events/events.tmpl.html",
-                controller: 'eventsController'
-            })
-            .otherwise({ redirectTo: '/news' });
+            .otherwise({
+                redirectTo: '/news'
+            });
     }])
     .controller('appNavigationMenu', ['$scope', '$location', '$window', '$timeout',
     function ($scope, $location, $window, $timeout) {
@@ -28,9 +29,9 @@ angular.module('app', [
         }, {
                 url: 'events'
         }, {
+                divider: true,
                 url: 'contact'
         }, {
-                divider: true,
                 url: 'about'
         }];
 
@@ -45,7 +46,7 @@ angular.module('app', [
             };
 
             $scope.isActive = function (page) {
-                var currentRoute = $location.path().substring(1) || 'news';
+                var currentRoute = $location.path().substring(1).split('/')[0] || 'news';
                 return page === currentRoute;
             };
 
@@ -59,15 +60,17 @@ angular.module('app', [
                     }, 1);
                 }
             };
+        
+            var mql;
             if ($window.matchMedia) {
-                var mql = $window.matchMedia('(min-width: 48em)');
+                mql = $window.matchMedia('(min-width: 48em)');
                 mql.addListener(handleMatchMedia);
                 handleMatchMedia(mql);
             }
             // else? who cares about IE
 
             $scope.$on('$destroy', function () {
-                mql.removeListener(handleMatchMedia);
+                mql && mql.removeListener(handleMatchMedia);
             });
 
 }])
